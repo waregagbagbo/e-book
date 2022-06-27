@@ -1,0 +1,10 @@
+<header>
+    <nav class="nav">        
+        <ul>
+          <li>{% if user.is_authenticated %}
+            <h6 id="username_detail";>Welcome Back, {{request.user}}</h6>
+          {% endif %}</li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+</header>

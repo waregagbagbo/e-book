@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% block content %}   
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th scope="row">Patient FullName</th>
+                    <th scope="row">Patient Gender</th>
+                    <th scope="row">Patient Age</th>
+                    <th scope="row">Entry Date</th>
+                    <th scope="row">Supervisor Contact</th>
+                    <th scope="row">Hospital Posted</th>
+                    <th scope="row">Biochemistry Results</th>
+                    <th scope="row">Nutrition Diagnosis</th>
+                    <th scope="row">Services Rendered</th>
+                    <th scope="row">Clinical Diagnosis</th>
+                    <th scope="row">Follow Up Plan</th>
+                    <th scope="row">Final Outcome</th>                   
+                </tr>
+            </thead>
+            <tbody>
+        {% for logs in data %}
+                <tr>
+                    <td>{{logs.patient_name}}</td>
+                    <td>{{logs.patient_gender}}</td>
+                    <td>{{logs.patient_age}}</td>
+                    <td>{{logs.date_created}}</td>
+                    <td>{{logs.supervisor_contact}}</td>
+                    <td>{{logs.hospital}}</td>
+                    <td>{{logs.biochemistry_results}}</td>
+                    <td>{{logs.nutrition_diagnosis}}</td>
+                    <td>{{logs.services_rendered}}</td>
+                    <td>{{logs.clinical_diagnosis}}</td>
+                    <td>{{logs.follow_up_plan}}</td>
+                    <td>{{logs.outcome}}</td> 
+                    <!--<td>{{logs.notes}}</tr>  -->                      
+                </tr>               
+            </tbody>
+            <tfoot>
+                
+            </tfoot>
+        {%endfor%}
+               <!-- <a href="#" class="btn btn-success">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>  
+                <a href="#" class="btn btn-secondary">More</a>--> 
+        </table>  
+         
+
+
+
+{%endblock%}

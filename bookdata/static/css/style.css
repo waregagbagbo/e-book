@@ -1,0 +1,14 @@
+*{
+    margin:0;
+    padding: 0;
+}
+header{
+    background-color:#fff;
+    width: 100%;
+    height:auto !important;
+}
+body{
+    padding: 50px;
+    box-sizing: border-box;
+    background-color:#f9f9f9!important;
+}
