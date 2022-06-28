@@ -3,8 +3,7 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
-class Profile(models.Model):
-    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+class Profile(models.Model):    
     kndi_number = models.CharField(max_length=200, unique=True, blank=False)
     speciality = models.CharField(max_length=200, blank=False)
     gender = models.CharField(max_length=20,blank=False)
@@ -20,7 +19,7 @@ Sex =(
 )
 
 class LogBookData(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
     patient_name = models.CharField(max_length=20, null=True)
     patient_gender = models.CharField(max_length=20, blank=False, choices=Sex, help_text="select above", default=True)
     patient_age = models.CharField(max_length=20, blank=False)

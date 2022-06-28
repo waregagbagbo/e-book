@@ -21,6 +21,7 @@ class LogBookForm(forms.ModelForm):
     class Meta:
         model = LogBookData
         fields = '__all__'
+        exclude = ['user']
     
 
 
@@ -32,6 +33,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model =  Profile
         fields = '__all__'
+
      
 
 

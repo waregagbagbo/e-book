@@ -14,15 +14,10 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 class CustomRegisterView(CreateView):
-    model = User
     template_name = 'accounts/register.html'
     success_url = reverse_lazy('login')
     form_class = LogBookRegister
 
-    def form_valid(self,form):
-        form.instance.profile = self.request.user.profile
-        return super().form_valid(form)
-       
         
        
 class CustomLoginView(LoginView):
@@ -57,7 +52,11 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     template_name = 'logbook/list_form.html'
 
     def get_queryset(self):
-        return LogBookData.objects.filter(profile=self.request.user.profile).order_by('-date_created')
+        return LogBookData.objects.filter(user=self.request.user)
+
+
+    
+
 
 
 class LogBookCreateView(LoginRequiredMixin,CreateView):
@@ -66,10 +65,10 @@ class LogBookCreateView(LoginRequiredMixin,CreateView):
     template_name = 'logbook/create_form.html'
     success_url = 'main'
 
-    def form_valid(self, form):
-        self.object = form.save()
-        return super(LogBookCreateView,self).form_valid(form)
-
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        self.get_object = form.save()
+        return super().form_valid(form)
 
 
 class LogBookDelete(LoginRequiredMixin,DeleteView):

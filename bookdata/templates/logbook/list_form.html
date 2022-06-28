@@ -24,7 +24,7 @@
                     <td>{{logs.patient_name}}</td>
                     <td>{{logs.patient_gender}}</td>
                     <td>{{logs.patient_age}}</td>
-                    <td>{{logs.date_created}}</td>
+                    <td>{{logs.date_created}}{{ value|date:"SHORT_DATE_FORMAT" }}</td>
                     <td>{{logs.supervisor_contact}}</td>
                     <td>{{logs.hospital}}</td>
                     <td>{{logs.biochemistry_results}}</td>
