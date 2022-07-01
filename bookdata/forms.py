@@ -21,12 +21,8 @@ class LogBookForm(forms.ModelForm):
     class Meta:
         model = LogBookData
         fields = '__all__'
-        exclude = ['user']
+        exclude = ['user']  
     
-
-
-class UserForm(forms.ModelForm):
-    pass
 
 
 class ProfileForm(forms.ModelForm):
@@ -34,6 +30,18 @@ class ProfileForm(forms.ModelForm):
         model =  Profile
         fields = '__all__'
 
+
+class LogBookSearchForm(forms.Form):
+    search_text =  forms.CharField(
+        required = False,
+        label='Search hospital!',
+        widget=forms.TextInput(attrs={'placeholder': 'search here!'})
+    )
+
+    search_age_exact = forms.IntegerField(
+        required = False,
+        label='Search age (exact match)!'
+    )
      
 
 

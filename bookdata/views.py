@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from .models import *
-from .forms import LogBookForm,LogBookRegister,ProfileForm
+from .forms import LogBookForm,LogBookRegister,ProfileForm,LogBookSearchForm
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.views.generic import ListView,TemplateView
 from django.contrib.auth.views import LoginView,LogoutView
@@ -9,6 +9,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
+from search_views.search import SearchListView
+from search_views.filters import BaseFilter
+from django.db.models import Q
 
 
 
@@ -50,15 +53,13 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     form_class = LogBookForm
     context_object_name = 'data'
     template_name = 'logbook/list_form.html'
+   
+
 
     def get_queryset(self):
-        return LogBookData.objects.filter(user=self.request.user)
-
-
+        return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
     
-
-
-
+   
 class LogBookCreateView(LoginRequiredMixin,CreateView):
     model  = LogBookData
     form_class = LogBookForm
@@ -67,7 +68,7 @@ class LogBookCreateView(LoginRequiredMixin,CreateView):
 
     def form_valid(self,form):
         form.instance.user = self.request.user
-        self.get_object = form.save()
+        self.object = form.save()
         return super().form_valid(form)
 
 
@@ -86,20 +87,7 @@ class ProfileFormView(LoginRequiredMixin,TemplateView):
     form_class = ProfileForm
     template_name = 'partials/profile.html'
 
-
-'''
-@login_required(login_url='login')
-def profile(request):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()
-            username = request.user.username
-            Profile.objects.create(user = user,)
-            messages.success(request, f'{username}, Your profile is updated.')
-            return redirect('main')
-    else:
-        form = ProfileForm(instance=request.user.profile)
-    context = {'form':form}
-    return render(request, 'partials/profile.html', context)'''
-
+class SearchListView(LoginRequiredMixin, ListView):
+    model = LogBookData
+    template_name = 'partials/logfilter.html'
+   

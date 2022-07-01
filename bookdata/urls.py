@@ -1,6 +1,6 @@
 from django.urls import path
 from .import views
-from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,CustomLoginView,DashboardView,CustomLogoutView,ProfileFormView
+from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,CustomLoginView,DashboardView,CustomLogoutView,ProfileFormView,SearchListView
 
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('data', LogBookCreateView.as_view(), name='data'),
     path('dashboard',DashboardView.as_view(), name='dashboard'),
     path('profile', ProfileFormView.as_view(), name='profile'), 
+    path('search', SearchListView.as_view(), name='search'),
 ]
