@@ -1,6 +1,7 @@
 from django.urls import path
 from .import views
-from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,CustomLoginView,DashboardView,CustomLogoutView,ProfileFormView,SearchListView
+from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,\
+    CustomLoginView,DashboardView,CustomLogoutView,ProfileFormView,SearchListView
 
 
 urlpatterns = [
@@ -12,4 +13,9 @@ urlpatterns = [
     path('dashboard',DashboardView.as_view(), name='dashboard'),
     path('profile', ProfileFormView.as_view(), name='profile'), 
     path('search', SearchListView.as_view(), name='search'),
+
+    path('export_csv', views.export_csv, name='csv_file'),
+
+
+
 ]

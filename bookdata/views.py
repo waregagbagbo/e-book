@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, HttpResponse
 from django.urls import reverse_lazy
 from .models import *
 from .forms import LogBookForm,LogBookRegister,ProfileForm,LogBookSearchForm
@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from search_views.search import SearchListView
 from search_views.filters import BaseFilter
 from django.db.models import Q
+import csv
 
 
 
@@ -52,13 +53,12 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     model = LogBookData
     form_class = LogBookForm
     context_object_name = 'data'
-    template_name = 'logbook/list_form.html'
-   
-
+    template_name = 'logbook/list_form.html' 
 
     def get_queryset(self):
         return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
     
+
    
 class LogBookCreateView(LoginRequiredMixin,CreateView):
     model  = LogBookData
@@ -90,4 +90,27 @@ class ProfileFormView(LoginRequiredMixin,TemplateView):
 class SearchListView(LoginRequiredMixin, ListView):
     model = LogBookData
     template_name = 'partials/logfilter.html'
-   
+
+
+def export_csv(request):
+    response = HttpResponse(content_type ='text/csv')
+    headers={'Content-Disposition': 'attachment; filename="logdata.csv"'}
+    
+    writer = csv.writer(response)
+    writer.writerow(['patient fullname','patient gender','patient age',\
+        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis','services rendered','clinical diagnosis','follow up plan','final outcome'])
+    
+    #query authenticated user data
+    data = LogBookData.objects.filter(user=request.user)
+    
+    #loop through the user data 
+    for d in data:
+        writer.writerow(['d.patient fullname','d.patient gender','d.patient age','d.date','d.supervisor contact',\
+            'd.hospital posted','d.biochemistry results','d.nutrition diagnosis','d.services rendered','d.clinical diagnosis',\
+                'd.follow up plan','d.final outcome'])   
+
+
+    return response
+
+
+ 
