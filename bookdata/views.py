@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from .models import *
 from .forms import LogBookForm,LogBookRegister,ProfileForm,LogBookSearchForm
@@ -94,20 +95,21 @@ class SearchListView(LoginRequiredMixin, ListView):
 
 def export_csv(request):
     response = HttpResponse(content_type ='text/csv')
-    headers={'Content-Disposition': 'attachment; filename="logdata.csv"'}
+    response['Content-Disposition'] = 'attachment; filename=LogbookData.csv'
     
     writer = csv.writer(response)
-    writer.writerow(['patient fullname','patient gender','patient age',\
-        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis','services rendered','clinical diagnosis','follow up plan','final outcome'])
-    
-    #query authenticated user data
+     #query authenticated user data
     data = LogBookData.objects.filter(user=request.user)
+
+    writer.writerow(['patientfullname','patient gender','patient age',\
+        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis','services rendered','clinical diagnosis','follow up plan','final outcome'])   
+   
     
     #loop through the user data 
     for d in data:
-        writer.writerow(['d.patient fullname','d.patient gender','d.patient age','d.date','d.supervisor contact',\
-            'd.hospital posted','d.biochemistry results','d.nutrition diagnosis','d.services rendered','d.clinical diagnosis',\
-                'd.follow up plan','d.final outcome'])   
+        writer.writerow([d.patient_name, d.patient_gender,d.patient_age,d.date_created,d.supervisor_contact,\
+            d.hospital,d.biochemistry_results,d.nutrition_diagnosis,d.services_rendered,d.clinical_diagnosis,\
+                d.follow_up_plan,d.outcome])  
 
 
     return response
