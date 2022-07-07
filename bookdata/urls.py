@@ -15,6 +15,7 @@ urlpatterns = [
     path('search', SearchListView.as_view(), name='search'),
 
     path('export_csv', views.export_csv, name='csv_file'),
+    path('export_pdf', views.export_pdf, name='pdf_file'),
 
 
 

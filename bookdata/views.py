@@ -16,6 +16,10 @@ from django.db.models import Q
 import csv
 
 
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
+
 
 # Create your views here.
 class CustomRegisterView(CreateView):
@@ -92,27 +96,53 @@ class SearchListView(LoginRequiredMixin, ListView):
     model = LogBookData
     template_name = 'partials/logfilter.html'
 
-
+# create csv download
 def export_csv(request):
     response = HttpResponse(content_type ='text/csv')
     response['Content-Disposition'] = 'attachment; filename=LogbookData.csv'
-    
+
+    #create the csv
     writer = csv.writer(response)
+
      #query authenticated user data
     data = LogBookData.objects.filter(user=request.user)
-
+    # create row of items
     writer.writerow(['patientfullname','patient gender','patient age',\
-        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis','services rendered','clinical diagnosis','follow up plan','final outcome'])   
+        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis','services rendered','clinical diagnosis','follow up plan','final outcome'])  
    
     
     #loop through the user data 
     for d in data:
         writer.writerow([d.patient_name, d.patient_gender,d.patient_age,d.date_created,d.supervisor_contact,\
             d.hospital,d.biochemistry_results,d.nutrition_diagnosis,d.services_rendered,d.clinical_diagnosis,\
-                d.follow_up_plan,d.outcome])  
-
-
+                d.follow_up_plan,d.outcome]) 
     return response
 
+
+#create pdf download
+
+def export_pdf(request):
+    response = HttpResponse(content_type ='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=LogbookData.pdf'
+
+    response['Content-Transfer-Encoding'] = 'binary'
+
+    data = LogBookData.objects.filter(user=request.user)
+
+    html_string = render_to_string('partials/pdf.html',{'data':data})
+    html = HTML(string = html_string)
+
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name,'rb')
+        response.write(output.read())
+    return response
+
+
+
+    
 
  
