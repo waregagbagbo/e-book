@@ -61,7 +61,12 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     template_name = 'logbook/list_form.html' 
 
     def get_queryset(self):
-        return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
+        search_input = self.request.GET.get('search_input') or ''
+        if search_input:
+            logbookdata = LogBookData.objects.filter(Q(patient_fullname__icontains=search_input))&Q(hospital_posted__icontains=search_input)\
+            &Q(patient_age__icontains=search_input)
+        else:
+            return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
     
 
    
@@ -86,20 +91,30 @@ class DashboardView(TemplateView):
     template_name = 'logbook/dashboard.html'
 
 
-
 class ProfileFormView(LoginRequiredMixin,TemplateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'partials/profile.html'
 
-class SearchListView(LoginRequiredMixin, ListView):
+
+class SearchResultsList(LoginRequiredMixin,ListView):
     model = LogBookData
-    template_name = 'partials/logfilter.html'
+    context_object_name = "search"
+    template_name = "partials/logfilter.html"
+
+    def get_queryset(self):
+        search_input = self.request.GET.get("search_input") or ''
+        if search_input:
+            search = LogBookData.objects.filter(Q(hospital__icontains=search_input)|Q(patient_name__icontains=search_input)|Q(patient_age__icontains=search_input))
+            return search
+        else:
+            return LogBookData.objects.all()
+    
 
 # create csv download
-def export_csv(request):
+def export_logbook(request):
     response = HttpResponse(content_type ='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=LogbookData.csv'
+    response['Content-Disposition'] = 'inline; attachment; filename=LogbookData.csv'
 
     #create the csv
     writer = csv.writer(response)
