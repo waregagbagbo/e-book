@@ -23,7 +23,7 @@ class LogBookData(models.Model):
     patient_name = models.CharField(max_length=20, null=True)
     patient_gender = models.CharField(max_length=20, blank=False, choices=Sex, help_text="select above", default=True)
     patient_age = models.CharField(max_length=20, blank=False)
-    date_created = models.DateField("entry date (2022/mm/dd)", auto_now_add=False)
+    date_created = models.DateField("entry date (%d-%m-%Y)", auto_now_add=False)
     supervisor_contact = models.CharField(max_length=20, blank=False, null=True)
     hospital = models.CharField(max_length=200, blank=False)
     #imaging_results = models.ImageField()

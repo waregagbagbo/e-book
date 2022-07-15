@@ -12,6 +12,8 @@ from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from search_views.search import SearchListView
 from search_views.filters import BaseFilter
+from django.core.paginator import Paginator
+
 from django.db.models import Q
 import csv
 
@@ -19,6 +21,8 @@ import csv
 from django.template.loader import render_to_string
 from weasyprint import HTML
 import tempfile
+
+
 
 
 # Create your views here.
@@ -59,14 +63,17 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     form_class = LogBookForm
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
+    paginate_by = 6 
 
     def get_queryset(self):
+        return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
+
         search_input = self.request.GET.get('search_input') or ''
         if search_input:
-            logbookdata = LogBookData.objects.filter(Q(patient_fullname__icontains=search_input))&Q(hospital_posted__icontains=search_input)\
+            search = LogBookData.objects.filter(Q(patient_fullname__icontains=search_input))&Q(hospital_posted__icontains=search_input)\
             &Q(patient_age__icontains=search_input)
         else:
-            return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
+            return search
     
 
    
@@ -94,22 +101,7 @@ class DashboardView(TemplateView):
 class ProfileFormView(LoginRequiredMixin,TemplateView):
     model = Profile
     form_class = ProfileForm
-    template_name = 'partials/profile.html'
-
-
-class SearchResultsList(LoginRequiredMixin,ListView):
-    model = LogBookData
-    context_object_name = "search"
-    template_name = "partials/logfilter.html"
-
-    def get_queryset(self):
-        search_input = self.request.GET.get("search_input") or ''
-        if search_input:
-            search = LogBookData.objects.filter(Q(hospital__icontains=search_input)|Q(patient_name__icontains=search_input)|Q(patient_age__icontains=search_input))
-            return search
-        else:
-            return LogBookData.objects.all()
-    
+    template_name = 'partials/profile.html'    
 
 # create csv download
 def export_logbook(request):
