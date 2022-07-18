@@ -1,10 +1,14 @@
-<form class="form-inline my-2 my-lg-0",method="GET">
-    <input class="form-control mr-sm-2" type="search"   placeholder="Search" aria-label="Search" name="search_input" value="{{search_input}}">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+<div class="div">
+    <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search"   placeholder="Search" aria-label="Search" name="search_input">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="{{search_input}}">Search</button>
 </form>
+</div>
 
-<a href="{%url 'csv_file' %}" class="btn btn-primary">Print Csv</a><br/>
-<a href="{%url 'pdf_file' %}" class="btn btn-secondary">Print Pdf</a><br/>
+<div class="div">
+    <a href="{%url 'csv_file' %}" class="btn btn-primary">Print Csv</a><br/>
+    <a href="{%url 'pdf_file' %}" class="btn btn-secondary">Print Pdf</a><br/>
+</div>
 
 
 

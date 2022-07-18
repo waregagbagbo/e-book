@@ -55,7 +55,7 @@ class CustomLogoutView(LogoutView):
         'title': _('Logged out'),
         **(self.extra_context or {})
         })
-        return context
+        return content
 
 
 class LogBookDataView(LoginRequiredMixin,ListView):
@@ -70,10 +70,11 @@ class LogBookDataView(LoginRequiredMixin,ListView):
 
         search_input = self.request.GET.get('search_input') or ''
         if search_input:
-            search = LogBookData.objects.filter(Q(patient_fullname__icontains=search_input))&Q(hospital_posted__icontains=search_input)\
-            &Q(patient_age__icontains=search_input)
+            search = LogBookData.objects.filter(Q (patient_name__icontains=search_input))& Q(hospital__icontains=search_input)\
+            & Q(patient_age__icontains=search_input)
         else:
-            return search
+            search = self.logBookData.objects.none()
+        return search
     
 
    
@@ -95,7 +96,7 @@ class LogBookDelete(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('main')
 
 class DashboardView(TemplateView):
-    template_name = 'logbook/dashboard.html'
+    template_name = 'panels/index.html'
 
 
 class ProfileFormView(LoginRequiredMixin,TemplateView):
