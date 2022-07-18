@@ -464,59 +464,63 @@
                     </div>
                     
                     <!--Table Data-->
-                    <table class="table" mt-3 border="1" p-3>
-                        <thead>
-                            <tr>
-                                <th scope="row">#</th>
-                                <th scope="row">Patient FullName</th>
-                                <th scope="row">Patient Gender</th>
-                                <th scope="row">Patient Age</th>
-                                <th scope="row">Entry Date</th>
-                                <th scope="row">Supervisor Contact</th>
-                                <th scope="row">Hospital Posted</th>
-                                <th scope="row">Biochemistry Results</th>
-                                <th scope="row">Nutrition Diagnosis</th>
-                                <th scope="row">Services Rendered</th>
-                                <th scope="row">Clinical Diagnosis</th>
-                                <th scope="row">Follow Up Plan</th>
-                                <th scope="row">Final Outcome</th>                   
-                            </tr>
-                        </thead>
-                        <tbody>
-                    {% for logs in data %}
-                            <tr>
-                                <td>{{forloop.counter}}</td>
-                                <td>{{logs.patient_name}}</td>
-                                <td>{{logs.patient_gender}}</td>
-                                <td>{{logs.patient_age}}</td>
-                                <td>{{logs.date_created}}</td>
-                                <td>{{logs.supervisor_contact}}</td>
-                                <td>{{logs.hospital}}</td>
-                                <td>{{logs.biochemistry_results}}</td>
-                                <td>{{logs.nutrition_diagnosis}}</td>
-                                <td>{{logs.services_rendered}}</td>
-                                <td>{{logs.clinical_diagnosis}}</td>
-                                <td>{{logs.follow_up_plan}}</td>
-                                <td>{{logs.outcome}}</td> 
-                                <!--<td>{{logs.notes}}</tr>  -->                      
-                            </tr>               
-                        </tbody>
-                        <tfoot>
-                            
-                        </tfoot>
-                    {%endfor%}
-                           <a href="#" class="btn btn-success">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>  
-                            <a href="#" class="btn btn-secondary">More</a>
-                    </table>
-                    <div class="paginator">
-                        {%include 'partials/paging.html'%}
-                    </div>  
+                    <div class="tabular">
+                        <div class="table-responsive-sm ml-1">
+                            <table class="table table-sm  table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="row">#</th>
+                                        <th scope="row">Patient FullName</th>
+                                        <th scope="row">Patient Gender</th>
+                                        <th scope="row">Patient Age</th>
+                                        <th scope="row">Entry Date</th>
+                                        <th scope="row">Supervisor Contact</th>
+                                        <th scope="row">Hospital Posted</th>
+                                        <th scope="row">Biochemistry Results</th>
+                                        <th scope="row">Nutrition Diagnosis</th>
+                                        <th scope="row">Services Rendered</th>
+                                        <th scope="row">Clinical Diagnosis</th>
+                                        <th scope="row">Follow Up Plan</th>
+                                        <th scope="row">Final Outcome</th> 
+                                        <th colspan="10"></th>                  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            {% for logs in data %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{logs.patient_name}}</td>
+                                        <td>{{logs.patient_gender}}</td>
+                                        <td>{{logs.patient_age}}</td>
+                                        <td>{{logs.date_created}}</td>
+                                        <td>{{logs.supervisor_contact}}</td>
+                                        <td>{{logs.hospital}}</td>
+                                        <td>{{logs.biochemistry_results}}</td>
+                                        <td>{{logs.nutrition_diagnosis}}</td>
+                                        <td>{{logs.services_rendered}}</td>
+                                        <td>{{logs.clinical_diagnosis}}</td>
+                                        <td>{{logs.follow_up_plan}}</td>
+                                        <td>{{logs.outcome}}</td> 
+                                        <!--<td>{{logs.notes}}</tr>  -->
+                                        <td><a href="#" class="btn btn-success  btn-sm">Edit</a></td>
+                                        <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>                     
+                                    </tr>
+                                               
+                                </tbody>
+                            {%endfor%}
+ 
+                            </table>
+                            <div class="paginator">
+                                {%include 'partials/paging.html'%}
+                            </div>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        
+                    </div>
+                                  
                      
-            
-            
-
-                    
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
