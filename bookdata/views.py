@@ -96,7 +96,7 @@ class LogBookDelete(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('main')
 
 class DashboardView(TemplateView):
-    template_name = 'panels/index.html'
+    template_name = 'logbook/index.html'
 
 
 class ProfileFormView(LoginRequiredMixin,TemplateView):
