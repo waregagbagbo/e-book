@@ -10,8 +10,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
-from search_views.search import SearchListView
-from search_views.filters import BaseFilter
 from django.core.paginator import Paginator
 
 from django.db.models import Q
@@ -55,7 +53,7 @@ class CustomLogoutView(LogoutView):
         'title': _('Logged out'),
         **(self.extra_context or {})
         })
-        return content
+        return context
 
 
 class LogBookDataView(LoginRequiredMixin,ListView):

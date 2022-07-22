@@ -8,7 +8,7 @@ from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,\
 urlpatterns = [
     path('', CustomLoginView.as_view(), name='user_login'),
     path('register',CustomRegisterView.as_view(),name='register'),
-    path('logout',CustomLogoutView.as_view(), name='logout'),
+    path('logout',CustomLogoutView.as_view(), name='user_logout'),
     path('main',LogBookDataView.as_view(), name='main'),
     path('data', LogBookCreateView.as_view(), name='data'),
     path('dashboard',DashboardView.as_view(), name='dashboard'),
