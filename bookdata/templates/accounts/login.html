@@ -19,9 +19,9 @@
     <link href="{% static 'css2/sb-admin-2.min.css' %}" rel="stylesheet">
 
 </head>
-{% load crispy_forms_tags %}
-
 <body class="bg-gradient-primary">
+
+    {% load crispy_forms_tags %}
 
     <div class="container">
 
@@ -57,7 +57,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="reset_password">Forgot Password?</a>
+                                        <a class="small" href="password_reset">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="{% url 'register' %}">Create an Account!</a>

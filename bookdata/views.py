@@ -28,7 +28,7 @@ import tempfile
 # Create your views here.
 class CustomRegisterView(CreateView):
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('user_login')
     form_class = LogBookRegister
 
         
