@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import LogBookForm,LogBookRegister,ProfileForm,LogBookSearchForm
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
-from django.views.generic import ListView,TemplateView
+from django.views.generic import ListView,TemplateView,DetailView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
@@ -89,12 +89,6 @@ class LogBookCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
    
 
-# delete view
-class LogBookDelete(LoginRequiredMixin,DeleteView):
-    model = LogBookData
-    template_name = 'logbook/delete_form.html'
-    success_url = reverse_lazy('main')
-
 # default dashboard view
 class DashboardView(TemplateView):
     template_name = 'logbook/index.html'
@@ -105,6 +99,20 @@ class ProfileFormView(LoginRequiredMixin,TemplateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'partials/profile.html'
+
+#delete view
+class LogBookDelete(LoginRequiredMixin,DeleteView):
+    model = LogBookData
+    template_name = 'logbook/delete_form.html'
+    success_url = reverse_lazy('main')
+
+class LogBookUpdate(LoginRequiredMixin,UpdateView):
+    model = LogBookData
+    form_class = LogBookForm
+    template_name = 'logbook/update_form.html'
+    success_message = 'User data updated successfully'
+    success_url = reverse_lazy('dashboard')
+   
 
 
 # create csv download
