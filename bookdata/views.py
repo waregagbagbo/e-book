@@ -11,6 +11,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from django.db.models import Q
 import csv
@@ -23,23 +25,27 @@ import tempfile
 
 
 
-# Create your views here.
-class CustomRegisterView(CreateView):
+# Create your views user registeration page section.
+class CustomRegisterView(SuccessMessageMixin,CreateView):
     template_name = 'accounts/register.html'
     success_url = reverse_lazy('user_login')
     form_class = LogBookRegister
+    success_message = "Account created successfully"
 
         
-       
-class CustomLoginView(LoginView):
+    # user login section   
+class CustomLoginView(LoginView, SuccessMessageMixin):
     template_name = 'accounts/login.html'
     fields = '__all__'
-    redirect_authenticated_user = True    
+    redirect_authenticated_user = True 
+    success_message = "Login successfull" 
+
 # define a method to achieve the success url    
     def get_success_url(self):
         return reverse_lazy('dashboard')
 
 
+# user logout view section
 class CustomLogoutView(LogoutView):
     template_name = 'accounts/logged_out.html'
     next_page = None
@@ -55,52 +61,51 @@ class CustomLogoutView(LogoutView):
         })
         return context
 
-
+# display total records
 class LogBookDataView(LoginRequiredMixin,ListView):
     model = LogBookData
     form_class = LogBookForm
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
-    paginate_by = 6 
+    paginate_by = 15
 
     def get_queryset(self):
         return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
 
-        search_input = self.request.GET.get('search_input') or ''
-        if search_input:
-            search = LogBookData.objects.filter(Q (patient_name__icontains=search_input))& Q(hospital__icontains=search_input)\
-            & Q(patient_age__icontains=search_input)
-        else:
-            search = self.logBookData.objects.none()
-        return search
     
-
    
-class LogBookCreateView(LoginRequiredMixin,CreateView):
+   # create an add operation form
+class LogBookCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model  = LogBookData
     form_class = LogBookForm
     template_name = 'logbook/create_form.html'
     success_url = 'main'
+    success_message = "Details saved successfully"
+    
 
     def form_valid(self,form):
         form.instance.user = self.request.user
         self.object = form.save()
         return super().form_valid(form)
+   
 
-
+# delete view
 class LogBookDelete(LoginRequiredMixin,DeleteView):
     model = LogBookData
     template_name = 'logbook/delete_form.html'
     success_url = reverse_lazy('main')
 
+# default dashboard view
 class DashboardView(TemplateView):
     template_name = 'logbook/index.html'
 
 
+# profile section view
 class ProfileFormView(LoginRequiredMixin,TemplateView):
     model = Profile
     form_class = ProfileForm
-    template_name = 'partials/profile.html'    
+    template_name = 'partials/profile.html'
+
 
 # create csv download
 def export_logbook(request):
@@ -114,7 +119,8 @@ def export_logbook(request):
     data = LogBookData.objects.filter(user=request.user)
     # create row of items
     writer.writerow(['patientfullname','patient gender','patient age',\
-        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis','services rendered','clinical diagnosis','follow up plan','final outcome'])  
+        'entry date','supervisor contact','hospital posted','biochemistry results','nutrition diagnosis',\
+            'services rendered','clinical diagnosis','follow up plan','final outcome'])  
    
     
     #loop through the user data 
@@ -125,8 +131,7 @@ def export_logbook(request):
     return response
 
 
-#create pdf download
-
+#create pdf download section
 def export_pdf(request):
     response = HttpResponse(content_type ='application/pdf')
     response['Content-Disposition'] = 'inline; attachment; filename=LogbookData.pdf'

@@ -267,11 +267,11 @@
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="{% url 'user_logout' %}" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
+                                <span class="badge badge-danger badge-counter">Logout</span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -391,13 +391,20 @@
                                         <div class="col-lg-10">
                                             <div class="p-5">
                                                 <div class="text-center">
-                                                    <h1 class="h4 text-gray-900 mb-4">Add Data!</h1>
-                                                </div>
-                                                <form class="user">
+                                                    <h1 class="h4 text-gray-900 mb-4">Add Data!</h1>  
+                                                    {% if messages %}
+                                                    {% for message in messages %}
+                                                    <div class="text-center alert alert-{{ message.tags }}">
+                                                        {{ message|safe }}
+                                                        </div>
+                                                        {% endfor %}
+                                                        {% endif %}
+                                                </div>                                                
+                                                <form class="user" method="POST">
                                                     <div class="form-group">
                                                         {% csrf_token %}
                                                         {{form | crispy}}
-                                                        <input class="btn btn-success " type="submit">
+                                                        <input class="btn btn-success " type="Submit">
                                                     </div>                                   
                                                     
                                                 </form>                                    
