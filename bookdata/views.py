@@ -68,20 +68,25 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
     paginate_by = 15
-
-    def get_queryset(self):
-        return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
-
     
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        if q:
+            multiple_q = Q(Q(patient_name__icontains=q) | Q(patient_age__icontains=q)) | Q(hospital__icontains=q)
+            data =self.model.objects.filter(multiple_q)
+        else:
+            data = self.model.objects.filter(user=self.request.user).order_by('-date_created')
+        return data
+        #return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
    
+    
    # create an add operation form
 class LogBookCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model  = LogBookData
     form_class = LogBookForm
     template_name = 'logbook/create_form.html'
     success_url = 'main'
-    success_message = "Details saved successfully"
-    
+    success_message = "Details saved successfully"    
 
     def form_valid(self,form):
         form.instance.user = self.request.user
@@ -111,8 +116,7 @@ class LogBookUpdate(LoginRequiredMixin,UpdateView):
     form_class = LogBookForm
     template_name = 'logbook/update_form.html'
     success_message = 'User data updated successfully'
-    success_url = reverse_lazy('dashboard')
-   
+    success_url = reverse_lazy('dashboard')  
 
 
 # create csv download

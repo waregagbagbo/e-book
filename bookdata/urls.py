@@ -18,8 +18,8 @@ urlpatterns = [
     path('update_details/<int:pk>/',LogBookUpdate.as_view(), name='update_details'),
     
     # document downloads path
-    path('export_csv', views.export_logbook, name='csv_file'),
-    path('export_pdf', views.export_pdf, name='pdf_file'),
+    path('export', views.export_logbook, name='csv_file'),
+    path('pdf_export', views.export_pdf, name='pdf'),
 
 
     # authentication section paths

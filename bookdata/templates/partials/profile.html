@@ -1,8 +1,16 @@
-<form method="post">
-    {% csrf_token %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <form method="post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                   <input value="save" type="submit">             
+                
+                </form>
 
-    {{form}}
-    <a href="{% url 'main' %}">Save</a>
+            </div>
+        </div>
+    </div>
 
-
-</form>
+</div>

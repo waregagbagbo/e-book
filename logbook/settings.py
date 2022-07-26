@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -134,3 +135,7 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = 'sendgrid_password'
 EMAIL_PORT =454
 EMAIL_USE_TLS = True
+
+#media
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join('media')
