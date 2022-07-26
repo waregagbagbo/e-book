@@ -67,16 +67,16 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     form_class = LogBookForm
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
-    paginate_by = 15
-    
+    paginate_by = 10
+
     def get_queryset(self):
-        q = self.request.GET.get('q')
+        q = self.request.GET.get('q') or '' 
         if q:
             multiple_q = Q(Q(patient_name__icontains=q) | Q(patient_age__icontains=q)) | Q(hospital__icontains=q)
             data =self.model.objects.filter(multiple_q)
         else:
-            data = self.model.objects.filter(user=self.request.user).order_by('-date_created')
-        return data
+            data = self.model.objects.none
+        return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
         #return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
    
     
