@@ -21,6 +21,20 @@ Sex =(
    ('O', "Others"),
 )
 
+HealthCenters = (
+    ('H',"AAR Hospital"),
+    ('H',"Aga Khan University Hospital, Nairobi"),
+    ('H',"Avenue Hospital"),
+    ('H',"Bristol Park Hospital Tasia Embakas"),
+    ('H',"Brother André Medical Center in Dandora"),
+    ('H',"Coptic Hospital Nursing Hospital"),
+    ('H',"Gertrude's Children's Hospital"),
+    ('H',"Karen Hospital"),
+    ('H',"Kenyatta Hospital"),
+    ('H',"Mama Lucy Kibaki"),
+    ('H',"Mater Hospital"),
+)
+
 class LogBookData(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.CASCADE)
     patient_name = models.CharField(max_length=20, null=True)
@@ -29,7 +43,7 @@ class LogBookData(models.Model):
     date_created = models.DateField("entry date (%yy-%mm-%dd)", auto_now_add=False)
     supervisor_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     supervisor_contact = PhoneNumberField(validators=[supervisor_regex], max_length=17, blank=False, null=True) # validators should be a list
-    hospital = models.CharField(max_length=200, blank=False)
+    hospital = models.CharField(max_length=200, blank=False, choices=HealthCenters)
     #imaging_results = models.ImageField()
     biochemistry_results = models.BooleanField(null=True)
     nutrition_diagnosis = models.CharField(max_length=1000, blank=True)
