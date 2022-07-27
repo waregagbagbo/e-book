@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import RegexValidator
+
 #from django.urls import reverse
 
 # Create your models here.
@@ -24,7 +27,8 @@ class LogBookData(models.Model):
     patient_gender = models.CharField(max_length=20, blank=False, choices=Sex, help_text="select above", default=True)
     patient_age = models.CharField(max_length=20, blank=False)
     date_created = models.DateField("entry date (%yy-%mm-%dd)", auto_now_add=False)
-    supervisor_contact = models.CharField(max_length=20, blank=False, null=True)
+    supervisor_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    supervisor_contact = PhoneNumberField(validators=[supervisor_regex], max_length=17, blank=False, null=True) # validators should be a list
     hospital = models.CharField(max_length=200, blank=False)
     #imaging_results = models.ImageField()
     biochemistry_results = models.BooleanField(null=True)

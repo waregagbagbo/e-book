@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookdata',
     'crispy_forms',
+    'phonenumber_field',
+    
 ]
 
 MIDDLEWARE = [

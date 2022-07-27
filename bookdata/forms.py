@@ -21,6 +21,7 @@ class LogBookForm(forms.ModelForm):
     class Meta:
         model = LogBookData
         fields = '__all__'
+        #phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$',error_message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
         exclude = ['user']  
     
 
