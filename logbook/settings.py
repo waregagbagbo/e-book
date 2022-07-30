@@ -130,13 +130,13 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK ='bootstrap4'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = 'sendgrid_password'
-EMAIL_PORT =454
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'denzrich10@gmail.com'
+EMAIL_HOST_PASSWORD = 'iexmfmmykxmcdhcz'
+EMAIL_PORT =587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "Nutritions and Dietetics Team<noreply@nda.or.ke>"
 
 #media
 STATIC_URL = 'static/'

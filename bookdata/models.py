@@ -3,15 +3,20 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import RegexValidator
 
+
+
 #from django.urls import reverse
 
 # Create your models here.
-class Profile(models.Model):    
+class Profile(models.Model):
+    person = models.OneToOneField(User,null=True,on_delete=models.CASCADE)   
     kndi_number = models.CharField(max_length=200, unique=True, blank=False)
     speciality = models.CharField(max_length=200, blank=False)
-    gender = models.CharField(max_length=20,blank=False)
+    gender = models.CharField(max_length=20,blank=False)    
+
     def __str__(self):
-        return self.user.username   
+        return self.user.username    
+
     
 
 # selector choice for gender

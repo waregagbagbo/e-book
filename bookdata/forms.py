@@ -15,7 +15,6 @@ class LogBookRegister(UserCreationForm):
         model = User
         fields = ('username','email','firstname','lastname','password1','password2')
 
-
 # logbook fields
 class LogBookForm(forms.ModelForm):   
     class Meta:
@@ -25,24 +24,22 @@ class LogBookForm(forms.ModelForm):
         exclude = ['user']  
     
 
+# create a user form to enable profile be changed by the user
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+       model= User
+       fields = ('username','first_name', 'last_name', 'email')
+    
 
-class ProfileForm(forms.ModelForm):
+#This is now the full  user profile form
+class ProfileForm(forms.ModelForm):    
     class Meta:
         model =  Profile
-        fields = '__all__'
+        fields = ('kndi_number','speciality','gender')
 
 
-class LogBookSearchForm(forms.Form):
-    search_text =  forms.CharField(
-        required = False,
-        label='Search hospital!',
-        widget=forms.TextInput(attrs={'placeholder': 'search here!'})
-    )
 
-    search_age_exact = forms.IntegerField(
-        required = False,
-        label='Search age (exact match)!'
-    )
+
      
 
 

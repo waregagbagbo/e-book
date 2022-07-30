@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .models import *
-from .forms import LogBookForm,LogBookRegister,ProfileForm,LogBookSearchForm
+from .forms import LogBookForm,LogBookRegister,ProfileForm,UserUpdateForm
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.views.generic import ListView,TemplateView,DetailView
 from django.contrib.auth.views import LoginView,LogoutView
@@ -100,10 +100,34 @@ class DashboardView(TemplateView):
 
 
 # profile section view
-class ProfileFormView(LoginRequiredMixin,TemplateView):
+class ProfileFormView(LoginRequiredMixin,UpdateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'partials/profile.html'
+    context_object_name = 'user'
+    queryset = Profile.objects.all()
+    #success_url = reverse_lazy('dashboard')
+
+    def success_url(self):
+        return reverse('users:user-settings', kwargs={'pk': self.get_object().id})
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileFormView, self).get_context_data(**kwargs)
+        context['user'] = UserUpdateForm(instance=self.request.user)
+        context["profile"] = ProfileForm(instance=self.request.user.profile)
+        return context 
+
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        user = profile.user
+        user.last_name = form.cleaned_data['last_name']
+        user.first_name = form.cleaned_data['first_name']
+        user.save()
+        profile.save()
+        return HttpResponseRedirect(reverse('users:user-profile', kwargs={'pk': self.get_object().id}))
+
+      
+         
 
 #delete view
 class LogBookDelete(LoginRequiredMixin,DeleteView):

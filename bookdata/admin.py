@@ -16,3 +16,6 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile,ProfileAdmin)
 admin.site.register(LogBookData,LogBookAdmin)
+
+# change default django admin interface
+admin.site.site_header = 'Nutritions Academy'
