@@ -9,11 +9,10 @@ from django.utils.timezone import now
 
 # Create your models here.
 class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)   
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE) 
     kndi_number = models.CharField(max_length=200, unique=True, blank=False)
     speciality = models.CharField(max_length=200, blank=False)
     gender = models.CharField(max_length=20,blank=False)
-    #slug = models.SlugField(unique = True, blank = True)
     #picture = models.ImageField(default='users/default_user.png', upload_to='users', blank=True, null=True)
    # updated = models.DateTimeField(auto_now=False)
     #created = models.DateTimeField(auto_now_add=True, blank=True)

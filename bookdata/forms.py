@@ -21,18 +21,27 @@ class LogBookForm(forms.ModelForm):
         model = LogBookData
         fields = '__all__'
         #phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$',error_message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
-        exclude = ['user']  
-    
+        exclude = ['user']      
  
 
 #This is now the full  user profile form
-class ProfileUpdateForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=32)
-    last_name = forms.CharField(max_length=32)    
+class ProfileForm(forms.ModelForm):
+    rst_name = forms.CharField(max_length=255)
+    last_name = forms.CharField(max_length=255)
+    email = forms.EmailField() 
+
     class Meta:
         model =  Profile
         fields = '__all__'
         exclude = ['user']
+
+
+def form_validation_error(form):
+    msg = ""
+    for field in form:
+        for error in field.errors:
+            msg += "%s: %s \\n" % (field.label if hasattr(field, 'label') else 'Error', error)
+    return msg
 
 
 

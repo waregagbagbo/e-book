@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from .models import *
-from .forms import LogBookForm,LogBookRegister,ProfileUpdateForm
+from .forms import LogBookForm,LogBookRegister,ProfileForm,form_validation_error
 from django.views.generic.edit import CreateView,DeleteView,UpdateView
 from django.views.generic import ListView,TemplateView,DetailView
 from django.contrib.auth.views import LoginView,LogoutView
@@ -112,32 +112,26 @@ class LogBookUpdate(LoginRequiredMixin,UpdateView):
     success_url = reverse_lazy('dashboard')  
 
 
-class ProfileFormView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
+class ProfileView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
     model = Profile
     template_name = 'partials/profile.html'
-    form_class = ProfileUpdateForm 
+    form_class = ProfileForm 
     success_url = 'dashboard'
     context_object_name = 'user' 
     success_message = 'Profile updated successfully'
 
-    def get_context_data(self, **kwargs):
-        context = super(ProfileFormView, self).get_context_data(**kwargs)
-        context["form"] = ProfileUpdateForm(instance=self.request.user.profile,initial={'first_name':user.first_name,'last_name,':user.last_name})
-        return context
-    
-
-    def get_queryset(self):
-        return super(ProfileFormView).get_queryset(pk=id)
+    def dispatch(self, request, *args, **kwargs):
+        self.profile, __ = Profile.objects.get_or_create(user=request.user)
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):
-        profile = form.save(commit=False)
-        user = profile.save()
-        user.last_name = form.cleaned_data['last_name']
-        user.first_name = form.cleaned_data['first_name']
-        user.save()
-        profile.save()
-        return HttpResponseRedirect(reverse('profile:user', kwargs={'pk': self.get_object().id}))
+         profile = form.save()
+         profile.user.first_name = form.cleaned_data.get('first_name')
+         profile.user.last_name = form.cleaned_data.get('last_name')
+         profile.user.email = form.cleaned_data.get('email')
+         profile.user.save()      
         
+
         # create csv download
 def export_logbook(request):
     response = HttpResponse(content_type ='text/csv')

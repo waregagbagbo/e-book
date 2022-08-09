@@ -12,7 +12,7 @@ def create_profile(sender, instance, created, **kwargs):
         user_profile.save()
 
 # Create a Profile for each new user.
-post_save.connect(create_profile, sender=User)
+#post_save.connect(create_profile, sender=User)
         
 
 '''@receiver(post_save, sender=User)
