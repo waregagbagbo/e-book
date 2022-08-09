@@ -10,7 +10,7 @@ class LogBookAdmin(admin.ModelAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     model = Profile
-    list_display = ('kndi_number','speciality','gender',)
+    list_display = ('user','kndi_number','speciality','gender',)
     list_display_links = ('speciality',)
 
 

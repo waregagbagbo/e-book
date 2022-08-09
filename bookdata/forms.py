@@ -23,19 +23,16 @@ class LogBookForm(forms.ModelForm):
         #phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$',error_message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
         exclude = ['user']  
     
-
-# create a user form to enable profile be changed by the user
-class UserUpdateForm(forms.ModelForm):
-    class Meta:
-       model= User
-       fields = ('username','first_name', 'last_name', 'email')
-    
+ 
 
 #This is now the full  user profile form
-class ProfileForm(forms.ModelForm):    
+class ProfileUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=32)
+    last_name = forms.CharField(max_length=32)    
     class Meta:
         model =  Profile
-        fields = ('kndi_number','speciality','gender')
+        fields = '__all__'
+        exclude = ['user']
 
 
 

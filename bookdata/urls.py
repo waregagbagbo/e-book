@@ -2,8 +2,8 @@ from django.urls import path
 from .import views
 from django.contrib.auth import views as auth_views
 from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,\
-    CustomLoginView,DashboardView,CustomLogoutView,ProfileFormView,\
-        TemplateView,LogBookDelete,LogBookUpdate
+    CustomLoginView,DashboardView,CustomLogoutView,\
+        TemplateView,LogBookDelete,LogBookUpdate,ProfileFormView
 
 
 urlpatterns = [
@@ -13,9 +13,10 @@ urlpatterns = [
     path('main',LogBookDataView.as_view(), name='main'),
     path('data', LogBookCreateView.as_view(), name='data'),
     path('dashboard',DashboardView.as_view(), name='dashboard'),
-    path('profile', ProfileFormView.as_view(), name='profile'),
+    path('profile/<int:pk>/', ProfileFormView.as_view(), name='profile'),
     path('delete_data/<int:pk>/',LogBookDelete.as_view(), name='delete_data'),
     path('update_details/<int:pk>/',LogBookUpdate.as_view(), name='update_details'),
+
     
     # document downloads path
     path('export', views.export_logbook, name='csv_file'),

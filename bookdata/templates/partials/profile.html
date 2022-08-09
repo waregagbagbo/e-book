@@ -10,15 +10,21 @@
 			        </button>
 		        </div>
 		        <div class="modal-body">
-			        <form method="post">
-			          	{% csrf_token %}
-			          	{{ form|crispy }}
-		        </div>
-		      	<div class="modal-footer">
-		        		<button type="submit" class="btn btn-primary">Save changes</button>
-		        	</form> 
-		        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        </div>
+					<form method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="form-group">
+							
+							{{form | crispy}}
+							<!-- User form -->
+							
+					
+						<div class="form-group">
+							<button class="btn btn-outline-info" type="submit">Update</button>
+						</div>
+					</form>
+					</div>
+					</div>		        
+		        	
 		    </div>
 	  	</div>
 	</div>

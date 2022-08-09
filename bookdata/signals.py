@@ -4,12 +4,18 @@ from django.dispatch import receiver # Import the receiver
 from .models import Profile
 
 
+
 @receiver(post_save, sender=User) 
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        user_profile = Profile(user=instance)
+        user_profile.save()
 
+# Create a Profile for each new user.
+post_save.connect(create_profile, sender=User)
+        
 
-@receiver(post_save, sender=User)
+'''@receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.profile.save()'''
+   

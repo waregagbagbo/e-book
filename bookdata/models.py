@@ -2,20 +2,29 @@ from django.db import models
 from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import RegexValidator
+from autoslug import AutoSlugField
+from datetime import datetime
+from django.utils.timezone import now
 
-
-
-#from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
-    person = models.OneToOneField(User,null=True,on_delete=models.CASCADE)   
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)   
     kndi_number = models.CharField(max_length=200, unique=True, blank=False)
     speciality = models.CharField(max_length=200, blank=False)
-    gender = models.CharField(max_length=20,blank=False)    
+    gender = models.CharField(max_length=20,blank=False)
+    #slug = models.SlugField(unique = True, blank = True)
+    #picture = models.ImageField(default='users/default_user.png', upload_to='users', blank=True, null=True)
+   # updated = models.DateTimeField(auto_now=False)
+    #created = models.DateTimeField(auto_now_add=True, blank=True)
+   
 
     def __str__(self):
-        return self.user.username    
+        return f'{self.user.username}'  
+
+    #def save(self, *args, **kwargs):        
+       # self.slug = slugify(self.user.username)
+        #super().save(*args, **kwargs)    
 
     
 
