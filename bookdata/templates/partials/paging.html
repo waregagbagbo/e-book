@@ -1,3 +1,4 @@
+{% load pagination_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +10,7 @@
 </head>
 <body>
     <nav class="pagination example">
-        <ul class="pagination justify-content-center">
-            {% load bootstrap_pagination %}
-            {% bootstrap_paginate page_obj range=10 %}
-    
+        <ul class="pagination justify-content-center">          
 
         </ul>
 

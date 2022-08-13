@@ -8,7 +8,7 @@ from django.views.generic import ListView,TemplateView,DetailView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.core.paginator import Paginator
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages

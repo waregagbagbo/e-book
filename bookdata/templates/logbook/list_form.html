@@ -18,9 +18,9 @@
 </head>
 
 <body id="page-top">
+   
 
-    {% load icons %}
-    {% icon 'edit' extra_classes='fa-fw my-own-icon' title='Edit' %}
+    {% block content%}
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -405,12 +405,13 @@
                                         <td>{{logs.clinical_diagnosis}}</td>
                                         <td>{{logs.follow_up_plan}}</td>
                                         <td>{{logs.outcome}}</td>                                                                               
-                                        <td><a href="{% url 'delete_data' logs.id %}" class="btn btn-danger btn-sm">Del</a>
-                                        <td><a href="{% url 'update_details' logs.id %}" class="btn btn-success btn-sm">Edit</a></td>
-                                        <td><i class="far fa-pencil fa-fw my-own-icon" title="Edit"></i></td>
-                                        <td></td>                     
+                                        <td><a href="{% url 'delete_data' logs.id %}" class="fa fa-trash" style="color:#ff0e0e;" aria-hidden="true"></a>
+                                        <td><a href="{% url 'update_details' logs.id %}" class="fa fa-edit" style="color:#228b22;" aria-hidden="true"></a></td>
+                                        
+                                                         
                                     </tr>
-                                                
+                                   
+
                                 </tbody>
                             {%endfor%}
  
@@ -485,7 +486,7 @@
     <script src="{% static 'js2/demo/chart-pie-demo.js' %}"></script>
 
 </body>
-
+{% endblock %}
 
 </html>
 
