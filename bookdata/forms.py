@@ -26,8 +26,8 @@ class LogBookForm(forms.ModelForm):
 
 #This is now the full  user profile form
 class ProfileForm(forms.ModelForm):
-    rst_name = forms.CharField(max_length=255)
-    last_name = forms.CharField(max_length=255)
+    firstname = forms.CharField(max_length=255)
+    lastname = forms.CharField(max_length=255)
     email = forms.EmailField() 
 
     class Meta:

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bookdata',
     'crispy_forms',
     'phonenumber_field',
+    'bootstrap_pagination',
     
 ]
 
@@ -145,3 +146,10 @@ DEFAULT_FROM_EMAIL = "Nutritions and Dietetics Team<noreply@nda.or.ke>"
 #media
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join('media')
+
+
+DJANGO_ICONS = {
+    "ICONS": {
+        "edit": {"name": "far fa-pencil"},
+    },
+}

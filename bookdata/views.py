@@ -67,6 +67,7 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
     paginate_by = 10
+    
 
     def get_queryset(self):
         q = self.request.GET.get('q') or '' 
@@ -116,7 +117,7 @@ class ProfileView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
     model = Profile
     template_name = 'partials/profile.html'
     form_class = ProfileForm 
-    success_url = 'dashboard'
+    success_url = reverse_lazy('dashboard')
     context_object_name = 'user' 
     success_message = 'Profile updated successfully'
 
@@ -125,9 +126,9 @@ class ProfileView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
         return super(ProfileView, self).dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):
-         profile = form.save()
-         profile.user.first_name = form.cleaned_data.get('first_name')
-         profile.user.last_name = form.cleaned_data.get('last_name')
+         profile = form.save(commit=False) # save first to the database
+         profile.user.firstname = form.cleaned_data.get('firstname')
+         profile.user.lastname = form.cleaned_data.get('lastname')
          profile.user.email = form.cleaned_data.get('email')
          profile.user.save()      
         

@@ -1,31 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+  </head>
+   
+
+	<title>Profile</title>
+</head>
+<body>
+
 {% load crispy_forms_tags %}
-	<!--Edit user modal-->
-	<div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
-	  	<div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      	<div class="modal-header">
-			        <h5 class="modal-title">Edit Profile</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-		        </div>
-		        <div class="modal-body">
-					<form method="POST" enctype="multipart/form-data">
-						{% csrf_token %}
-						<div class="form-group">
-							
-							{{form | crispy}}
-							<!-- User form -->
-							
-					
-						<div class="form-group">
-							<button class="btn btn-outline-info" type="submit">Update</button>
-						</div>
-					</form>
+<!--Edit user modal-->
+<div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title">Edit Profile</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" enctype="multipart/form-data">						
+					<div class="form-group">
+						{% csrf_token %}							
+						{{form | crispy}}				<!-- User form -->					
+				
+					<div class="form-group">
+						<button class="btn btn-outline-info" type="submit">Update</button>
 					</div>
-					</div>		        
-		        	
-		    </div>
-	  	</div>
-	</div>
+				</form>
+				</div>
+				</div>		        
+				
+		</div>
+	  </div>
+</div>
+
+
+	
+</body>
+</html>
 
