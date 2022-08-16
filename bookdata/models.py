@@ -17,9 +17,9 @@ class Profile(models.Model):
 
 # selector choice for gender
 Sex =(
-   ('M', "Male"),
-   ('F', "Female"),
-   ('O', "Others"),
+   ('Male','Male'),
+   ('Female','Female'),
+   ('Others','Others'),
 )
 
 HealthCenters = (

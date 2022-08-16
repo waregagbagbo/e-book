@@ -37,8 +37,7 @@ class CustomLoginView(LoginView, SuccessMessageMixin):
     template_name = 'accounts/login.html'
     fields = '__all__'
     redirect_authenticated_user = True 
-    success_message = "Login successfull" 
-
+    success_message = "Login successfull"
 # define a method to achieve the success url    
     def get_success_url(self):
         return reverse_lazy('dashboard')
@@ -66,19 +65,11 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     form_class = LogBookForm
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
-    paginate_by = 10
-    
+    paginate_by = 10     
 
     def get_queryset(self):
-        q = self.request.GET.get('q') or '' 
-        if q:
-            multiple_q = Q(Q(patient_name__icontains=q) | Q(patient_age__icontains=q)) | Q(hospital__icontains=q)
-            data =self.model.objects.filter(multiple_q)
-        else:
-            data = self.model.objects.none
         return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
-        #return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
-   
+
     
    # create an add operation form
 class LogBookCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -91,7 +82,7 @@ class LogBookCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self,form):
         form.instance.user = self.request.user
         self.object = form.save()
-        return super().form_valid(form)
+        return super(LogBookCreateView, self).form_valid(form)
    
 
 # default dashboard view
@@ -113,7 +104,7 @@ class LogBookUpdate(LoginRequiredMixin,UpdateView):
     success_url = reverse_lazy('dashboard')  
 
 
-class ProfileView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
+class ProfileView(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
     model = Profile
     template_name = 'partials/profile.html'
     form_class = ProfileForm 
@@ -130,7 +121,22 @@ class ProfileView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
          profile.user.firstname = form.cleaned_data.get('firstname')
          profile.user.lastname = form.cleaned_data.get('lastname')
          profile.user.email = form.cleaned_data.get('email')
-         profile.user.save()      
+         profile.user.save()
+
+
+class SearchList(LoginRequiredMixin, ListView):
+    model = LogBookData
+    template_name = 'partials/search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        try:
+            if query:
+                object_list = LogBookData.objects.filter(Q(patient_name__icontains=query) | Q(patient_age__icontains=query))
+                return object_list
+        except AttributeError:
+            return HttpResponse('Search not Found')   
+
         
 
         # create csv download
@@ -176,6 +182,7 @@ def export_pdf(request):
         output = open(output.name,'rb')
         response.write(output.read())
     return response
+    
 
 
 

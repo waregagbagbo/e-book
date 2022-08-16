@@ -149,8 +149,4 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join('media')
 
 
-DJANGO_ICONS = {
-    "ICONS": {
-        "edit": {"name": "far fa-pencil"},
-    },
-}
+

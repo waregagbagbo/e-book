@@ -1,51 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=initial-scale=1.0">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        @page{
-            size: "A4";
-            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
-            width: 130%;
-            padding:30px; 
-             
-            
-        
-        @top-center{
-            font-size:30px;
-            content: 'NUTRITIONS ACADEMY LOGBOOK REPORT';
-            font-weight:bold;
-            
-            
-            
-        }        
-        @bottom-right{
-           content: "Page" counter(page) "of " counter(pages);
-        }
-    }
-        
-    </style>
-</head>
-<body>
-    <header>
-     
-    
-    </header>
-    <nav>
-        
-        <label for="student">Student Name:</label><br>
-        <label for="student">Student Specialization:</label><br>
-        <label for="student">Student KNDI_Number:</label><br>
-        <label for="student">Student Gender:</label><br>
-        <br>
-                
-        
-    </nav>
-    <div class="container">
+{% extends 'panels/404.html' %}
+{% block content %}
+
+
+
+<div class="container">
+    <div class="tabular">
         <table class="table table-bordered border-secondary">
             <thead>
                 <tr>
@@ -65,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-        {% for logs in data %}
+        {% for logs in object_list %}
                 <tr>
                     <td>{{forloop.counter}}</td>
                     <td>{{logs.patient_name}}</td>
@@ -85,14 +44,8 @@
             </tbody>
         {% endfor %}
         </table>
-        <div class="notes">            
-            <p><strong>Supervisor's Signature:</strong>.....................
-            <p><strong>Date Signed:</strong>:.....................
-                <p>
-            </p>
-        </div>
-        <p><strong>Notes/Remarks:</strong></p>
-
-    </div>    
-</body>
-</html>
+    
+        
+    </div>
+    
+{% endblock %}

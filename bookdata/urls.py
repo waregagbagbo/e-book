@@ -3,7 +3,7 @@ from .import views
 from django.contrib.auth import views as auth_views
 from .views import LogBookDataView,LogBookCreateView,CustomRegisterView,\
     CustomLoginView,DashboardView,CustomLogoutView,\
-        TemplateView,LogBookDelete,LogBookUpdate,ProfileView
+        TemplateView,LogBookDelete,LogBookUpdate,ProfileView,SearchList
 
 
 urlpatterns = [
@@ -16,6 +16,7 @@ urlpatterns = [
     path('profile/<int:pk>/', ProfileView.as_view(), name='profile'),
     path('delete_data/<int:pk>/',LogBookDelete.as_view(), name='delete_data'),
     path('update_details/<int:pk>/',LogBookUpdate.as_view(), name='update_details'),
+    path('search_result',SearchList.as_view(), name='search'),
 
     
     # document downloads path
