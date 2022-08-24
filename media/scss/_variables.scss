@@ -16,8 +16,8 @@ $gray-800: #5a5c69 !default;
 $gray-900: #3a3b45 !default;
 $black: #000 !default;
 
-$blue: #4e73df !default;
-$indigo: #6610f2 !default;
+$blue: #006400 !default;
+$indigo: #006400 !default;
 $purple: #6f42c1 !default;
 $pink: #e83e8c !default;
 $red: #e74a3b !default;
@@ -76,6 +76,13 @@ $dropdown-font-size: 0.85rem !default;
 $dropdown-border-color: $border-color !default;
 
 // Images
-$login-image: 'https://source.unsplash.com/K4mSJ7kc0As/600x800' !default;
-$register-image: 'https://source.unsplash.com/Mv9hjnEUHR4/600x800' !default;
-$password-image: 'https://source.unsplash.com/oWTW-jNGl9I/600x800' !default;
+
+
+$login-image: 'https://images.unsplash.com//600x800'!default;
+$register-image: 'https://images.unsplash.com//600x800' !default;
+$password-image: 'https://images.unsplash.com//600x800' !default;
+
+
+//$login-image: 'https://unsplash.com/photos/1K9T5YiZ2WU/600x800' !default;
+//$register-image: 'https://unsplash.com/photos/1K9T5YiZ2WU/600x800' !default;
+//$password-image: 'https://unsplash.com/photos/1K9T5YiZ2WU/600x800' !default;

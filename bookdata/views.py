@@ -65,8 +65,8 @@ class LogBookDataView(LoginRequiredMixin,ListView):
     form_class = LogBookForm
     context_object_name = 'data'
     template_name = 'logbook/list_form.html' 
-    paginate_by = 10     
-
+    paginate_by = 10  
+  
     def get_queryset(self):
         return LogBookData.objects.filter(user=self.request.user).order_by('-date_created')
 
@@ -101,10 +101,11 @@ class LogBookUpdate(LoginRequiredMixin,UpdateView):
     form_class = LogBookForm
     template_name = 'logbook/update_form.html'
     success_message = 'User data updated successfully'
-    success_url = reverse_lazy('dashboard')  
+    success_url = reverse_lazy('dashboard') 
 
 
-class ProfileView(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
+
+class ProfileView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
     model = Profile
     template_name = 'partials/profile.html'
     form_class = ProfileForm 
@@ -123,20 +124,19 @@ class ProfileView(LoginRequiredMixin,SuccessMessageMixin, UpdateView):
          profile.user.email = form.cleaned_data.get('email')
          profile.user.save()
 
-
+# implement search field
 class SearchList(LoginRequiredMixin, ListView):
     model = LogBookData
     template_name = 'partials/search.html'
 
-    def get_queryset(self):
-        query = self.request.GET.get('q')
+    def get_queryset(self):        
         try:
+            query = self.request.GET.get('q')
             if query:
                 object_list = LogBookData.objects.filter(Q(patient_name__icontains=query) | Q(patient_age__icontains=query))
                 return object_list
-        except AttributeError:
-            return HttpResponse('Search not Found')   
-
+        except OperationalError:
+            print('No information related data from the database')
         
 
         # create csv download
