@@ -13,7 +13,6 @@ html5lib==1.1
 mysqlclient==2.1.1
 phonenumbers==8.12.52
 Pillow==9.2.0
-pkg_resources==0.0.0
 pycparser==2.21
 pydyf==0.2.0
 pyphen==0.12.0
