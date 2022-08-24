@@ -1,1 +1,0 @@
-web: gunicorn e-book.wsgi --log-file -
