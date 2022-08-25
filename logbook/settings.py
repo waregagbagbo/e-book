@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,9 +25,10 @@ SECRET_KEY = 'django-insecure-k&4j@m2dxavq*u&v_%_xkt!xnwikn7o_=6&x3f1wg!*lgu0p+n
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://nutritionsacademy.herokuapp.com']
+#ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1', '']
+ALLOWED_HOST = ['*',]
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'bookdata',
     'crispy_forms',
     'phonenumber_field',
+    'whitenoise.runserver_nostatic',
  
       
 ]
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'logbook.urls'
@@ -89,6 +92,9 @@ DATABASES = {
         
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -147,6 +153,10 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL ='/media/'
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 
