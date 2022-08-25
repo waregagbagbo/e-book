@@ -83,8 +83,8 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Hobby Dev',
+        'ENGINE': 'django.db.backends.SQlite3',
+        'NAME': '',
 
         
     }
