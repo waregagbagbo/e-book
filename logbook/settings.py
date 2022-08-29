@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 import dj_database_url
+from django.core.management.utils import get_random_secret_key
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,14 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k&4j@m2dxavq*u&v_%_xkt!xnwikn7o_=6&x3f1wg!*lgu0p+n'
+#SECRET_KEY = 'django-insecure-k&4j@m2dxavq*u&v_%_xkt!xnwikn7o_=6&x3f1wg!*lgu0p+n'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-#ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1', '']
-ALLOWED_HOST = ['*',]
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 # Application definition
@@ -84,14 +89,29 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.SQlite3',
-        'NAME': '',
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.mysql',
+   #     'DATABASE NAME': 'Logbook',
+    #    'PASSWORD': '',
+     #   'PORT':'3306',
+      #  'USERNAME':'root',        
+ #   }
+#}
 
-        
+if DEVELOPMENT_MODE is True:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
     }
-}
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined")
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
@@ -141,11 +161,11 @@ CRISPY_TEMPLATE_PACK ='bootstrap4'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'denzrich10@gmail.com'
+EMAIL_HOST_USER = ""
 EMAIL_HOST_PASSWORD = 'iexmfmmykxmcdhcz'
 EMAIL_PORT =587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "Nutritions and Dietetics Team<noreply@nda.or.ke>"
+DEFAULT_FROM_EMAIL = "Nutritions and Dietetics Team<noreply@nutritionsacademy>"
 
 #media
 STATIC_URL = '/static/'
