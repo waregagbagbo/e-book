@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
 from pathlib import Path
 import os
 import sys
@@ -89,32 +88,32 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.mysql',
-   #     'DATABASE NAME': 'Logbook',
-    #    'PASSWORD': '',
-     #   'PORT':'3306',
-      #  'USERNAME':'root',        
- #   }
-#}
-
-if DEVELOPMENT_MODE is True:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'DATABASE NAME': 'Logbook',
+        'PASSWORD': '',
+        'PORT':'3306',
+        'USERNAME':'root',        
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+}
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+#if DEVELOPMENT_MODE is True:
+    #DATABASES = {
+        #"default": {
+            #"ENGINE": "django.db.backends.sqlite3",
+           # "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        #}
+    #}
+#elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    #if os.getenv("DATABASE_URL", None) is None:
+        #raise Exception("DATABASE_URL environment variable not defined")
+    #DATABASES = {
+       # "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+   # }
+
+#db_from_env = dj_database_url.config(conn_max_age=600)
+#DATABASES['default'].update(db_from_env)"""
 
 
 # Password validation
@@ -176,7 +175,6 @@ MEDIA_URL ='/media/'
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 
 
