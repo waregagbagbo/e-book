@@ -7,7 +7,7 @@ from django.core.validators import RegexValidator
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE) 
-    kndi_number = models.CharField(max_length=200, blank=False)
+    kndi_number = models.CharField(max_length=200, blank=False, null=True)
     speciality = models.CharField(max_length=200, blank=False)
     gender = models.CharField(max_length=20,blank=False)    
 

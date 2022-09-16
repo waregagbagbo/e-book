@@ -97,25 +97,24 @@ DATABASES = {
         'USERNAME':'root',        
     }
 }
-
-#if DEVELOPMENT_MODE is True:
-    #DATABASES = {
-        #"default": {
-            #"ENGINE": "django.db.backends.sqlite3",
-           # "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        #}
-    #}
-#elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    #if os.getenv("DATABASE_URL", None) is None:
-        #raise Exception("DATABASE_URL environment variable not defined")
-    #DATABASES = {
-       # "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-   # }
-
-#db_from_env = dj_database_url.config(conn_max_age=600)
-#DATABASES['default'].update(db_from_env)"""
-
-
+if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
+    DATABASES = { 
+      'default': {
+        'ENGINE'  : 'django.db.backends.mysql', 
+        'NAME'    : os.getenv('DB_NAME'     , 'Logbook'),
+        'USER'    : os.getenv('DB_USERNAME' , ''),
+        'PASSWORD': os.getenv('DB_PASS'     , 'root'),
+        'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
+        'PORT'    : os.getenv('DB_PORT'     , 3306),
+        }, 
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite3',
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
