@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import sys
-import dj_database_url
-from django.core.management.utils import get_random_secret_key
+#import dj_database_url
+#from django.core.management.utils import get_random_secret_key
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,17 +22,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-k&4j@m2dxavq*u&v_%_xkt!xnwikn7o_=6&x3f1wg!*lgu0p+n'
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+SECRET_KEY = 'django-insecure-k&4j@m2dxavq*u&v_%_xkt!xnwikn7o_=6&x3f1wg!*lgu0p+n'
+#SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
+
+ALLOWED_HOSTS = ['*']
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
+#DEBUG = os.getenv("DEBUG", "True") == "False"
 
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+#ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")'''
 
 
 # Application definition
@@ -90,31 +92,16 @@ WSGI_APPLICATION = 'logbook.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'DATABASE NAME': 'Logbook',
-        'PASSWORD': '',
-        'PORT':'3306',
-        'USERNAME':'root',        
+      'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'logbook',
+      'USER': 'root',
+      'PASSWORD': '',
+      'HOST': '127.0.0.1',
+      'PORT': '3306',
+            
     }
 }
-if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
-    DATABASES = { 
-      'default': {
-        'ENGINE'  : 'django.db.backends.mysql', 
-        'NAME'    : os.getenv('DB_NAME'     , 'Logbook'),
-        'USER'    : os.getenv('DB_USERNAME' , ''),
-        'PASSWORD': os.getenv('DB_PASS'     , 'root'),
-        'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
-        'PORT'    : os.getenv('DB_PORT'     , 3306),
-        }, 
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }
-    }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 

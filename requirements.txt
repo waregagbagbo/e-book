@@ -6,6 +6,7 @@ dj-database-url==1.0.0
 Django==4.1
 django-bootstrap==0.2.4
 django-crispy-forms==1.14.0
+django-environ==0.9.0
 django-icons==22.1
 django-phonenumber-field==6.3.0
 fonttools==4.34.4
@@ -14,7 +15,6 @@ html5lib==1.1
 mysqlclient==2.1.1
 phonenumbers==8.12.52
 Pillow==9.2.0
-pkg_resources==0.0.0
 psycopg2==2.9.3
 pycparser==2.21
 pydyf==0.2.0
