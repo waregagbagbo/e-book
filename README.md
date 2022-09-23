@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-# e-book
+<strong>Electronic logbook<strong>
 Nutritions Academy is an institution where you can get professional education and reliable consultation by our team of certified teachers and instructors.
 
- Built with Django.
+<strong>Built with Django.<strong>
 
 
 Features
@@ -52,6 +51,7 @@ http://127.0.0.1:8000/login/
 
 sparkles Code-base structure
 The project is coded using a simple and intuitive structure presented below:
+<br/>
 
 < PROJECT ROOT >
    |
