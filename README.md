@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # e-book
 Nutritions Academy is an institution where you can get professional education and reliable consultation by our team of certified teachers and instructors.
 
@@ -99,4 +100,6 @@ The project is coded using a simple and intuitive structure presented below:
    |-- manage.py                            # Start the app - Django default start script
    |
    |-- ************************************************************************
+=======
+
 
