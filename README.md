@@ -1,22 +1,23 @@
-<strong>Electronic logbook<strong>
+<strong>#Electronic logbook</strong>
+
 Nutritions Academy is an institution where you can get professional education and reliable consultation by our team of certified teachers and instructors.
 
 <strong>Built with Django.<strong>
 
 
-Features
+  <strong>Features:</strong>
 
 Up-to-date dependencies
-Database: sqlite
+Database: sqlite,mysql
 UI-Ready app, Django Native ORM
 Session-Based authentication, Forms validation
 
-Set Up Database
+  <strong>Set Up Database</strong>
 
 $ python manage.py makemigrations
 $ python manage.py migrate
 
-Start the app
+  <strong>Start the app</strong>
 
 $ python manage.py runserver
 At this point, the app runs at http://127.0.0.1:8000/.
