@@ -2,6 +2,9 @@
 
 Nutritions Academy is an institution where you can get professional education and reliable consultation by our team of certified teachers and instructors.
 
+![screenshot-127 0 0 1_8000-2022 09 23-13_04_31](https://user-images.githubusercontent.com/44092807/191941335-6b100c7f-ccb9-4871-ad0a-b9220a160295.png)
+![screenshot-127 0 0 1_8000-2022 09 23-13_07_09](https://user-images.githubusercontent.com/44092807/191941352-15d06ac5-ef2d-49ed-ae0d-7f029d815a30.png)
+
 <strong>Built with Django.<strong>
 
 ```bash
