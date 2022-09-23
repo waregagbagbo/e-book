@@ -1,59 +1,84 @@
-<strong>#Electronic logbook</strong>
+# [Nutritions Electronic Logbook](https://www.nda.or.ke)
 
 Nutritions Academy is an institution where you can get professional education and reliable consultation by our team of certified teachers and instructors.
 
 <strong>Built with Django.<strong>
 
+```bash
+$ virtualenv env
+$ source env/bin/activate
+$ pip3 install -r requirements.txt
+```
 
-  <strong>Features:</strong>
+<br />
 
-Up-to-date dependencies
-Database: sqlite,mysql
-UI-Ready app, Django Native ORM
-Session-Based authentication, Forms validation
+> Set Up Database
 
-  <strong>Set Up Database</strong>
-
+```bash
 $ python manage.py makemigrations
 $ python manage.py migrate
+```
 
-  <strong>Start the app</strong>
+<br />
 
+> Start the app
+
+```bash
 $ python manage.py runserver
-At this point, the app runs at http://127.0.0.1:8000/.
+```
 
+At this point, the app runs at `http://127.0.0.1:8000/`. 
 
-et Up for Windows
-Install modules via VENV (windows)
+<br />
 
+### 👉 Set Up for `Windows` 
+
+> Install modules via `VENV` (windows) 
+
+```
 $ virtualenv env
 $ .\env\Scripts\activate
 $ pip3 install -r requirements.txt
+```
 
-Set Up Database
+<br />
 
+> Set Up Database
+
+```bash
 $ python manage.py makemigrations
 $ python manage.py migrate
+```
 
-Start the app
+<br />
 
+> Start the app
+
+```bash
 $ python manage.py runserver
-At this point, the app runs at http://127.0.0.1:8000/.
+```
 
+At this point, the app runs at `http://127.0.0.1:8000/`. 
 
-point_right Create Users
-By default, the app redirects guest users to authenticate. In order to access the private pages, follow this set up:
+<br />
 
-Start the app via python manage.py runserver
-Access the registration page and create a new user:
-http://127.0.0.1:8000/register/
-Access the sign in page and authenticate
-http://127.0.0.1:8000/login/
+### 👉 Create Users
 
-sparkles Code-base structure
+By default, the app redirects guest users to authenticate. In order to access the private pages, follow this set up: 
+
+- Start the app via `python manage.py runserver`
+- Access the `registration` page and create a new user:
+  - `http://127.0.0.1:8000/register/`
+- Access the `sign in` page and authenticate
+  - `http://127.0.0.1:8000/login/`
+
+<br />
+
+## ✨ Code-base structure
+
 The project is coded using a simple and intuitive structure presented below:
-<br/>
 
+```bash
 < PROJECT ROOT >
    |
    |-- core/                               # Implements app configuration
@@ -101,6 +126,6 @@ The project is coded using a simple and intuitive structure presented below:
    |-- manage.py                            # Start the app - Django default start script
    |
    |-- ************************************************************************
-=======
+```
 
 
