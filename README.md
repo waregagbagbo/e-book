@@ -5,7 +5,7 @@ Nutritions Academy is an institution where you can get professional education an
 > Features
 
 - `Up-to-date dependencies`
-- Database: `sqlite`
+- Database: `sqlite`, `Mysql`
 - UI-Ready app, Django Native ORM
 - `Session-Based authentication`, Forms validation
 -  Built with Django.
